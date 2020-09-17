@@ -1,0 +1,9 @@
+extends ../layout.pug
+include ../_thumbcard
+
+block content
+  .album.py-5.bg-light
+    .container
+      .row
+        each tournament in tournaments
+          +thumbcard(tournament)

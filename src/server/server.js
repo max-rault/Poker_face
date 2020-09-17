@@ -11,10 +11,12 @@ app.use('/static', express.static(path.join(__dirname, '//src///assets//icons'))
 
 app.set('trust proxy', 1) // trust first proxy
 
-app.use(cookieSession({
+
+/*app.use(cookieSession({
   name: 'session',
-  keys: ['username', 'pwd']
-}))
+    keys: ['key1', 'key2'],
+    maxAge:  60 * 1000
+}))*/
 
 app.use('/', router)
 
