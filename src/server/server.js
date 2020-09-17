@@ -7,7 +7,8 @@ const port = 3000
 
 app.set('view engine', 'pug')
 app.set('views','./src/views')
-app.use('/static', express.static(path.join(__dirname, '//src///assets//icons')))
+var publicDir = require('path').join(__dirname,'../assets/icons'); 
+app.use(express.static(publicDir)); 
 
 app.set('trust proxy', 1) // trust first proxy
 

@@ -1,15 +1,21 @@
 header
-  .collapse.bg-dark#navbarHeader
-    .container
-      .row
-        .col-sm-8.col-md-7.py-4
-          h2.text-white Menu
-          p.text-muted Add some information about the album below, the author, or any other background context. Make it a few sentences long so folks can pick up some informative tidbits. Then, link them off to some social networking sites or contact information.
-        .col-sm-4.offset-md-1.py-4
-  nav.navbar.navbar-dark.bg-dark.shadow-sm
-    .container.d-flex.justify-content-between
-      a.navbar-brand.d-flex.align-items-center
-        //- Including the svg logo
-        //- include MKT_logo.svg
-      button.navbar-toggler.collapsed&attributes({'data-toggle': 'collapse'}, {'data-target': '#navbarHeader'})
-        span.navbar-toggler-icon
+  nav.navbar.navbar-expand-lg.navbar-dark.bg-dark
+    a.navbar-brand(href='/') Mortal Kombat Tournament
+    button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarSupportedContent', aria-controls='navbarSupportedContent', aria-expanded='false', aria-label='Toggle navigation')
+      span.navbar-toggler-icon
+  
+    .collapse.navbar-collapse(id='navbarSupportedContent')
+      ul.navbar-nav.mr-auto
+        li.nav-item
+          a.nav-link(href='/tournament') Tournois
+        li.nav-item
+          a.nav-link(href='/participants') Participants
+        li.nav-item
+          a.nav-link(href='/places') Places
+      ul.navbar-nav.float-right
+        li.nav-item
+          a.nav-link(href='/login') Login
+        li.nav-item.dropdown
+          a.nav-link.dropdown-toggle(id='navbarDropdownMenuLink', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false') Accounts
+          .dropdown-menu(aria-labelledby='navbarDropdownMenuLink')
+            a.dropdown-item(href='#') Settings
