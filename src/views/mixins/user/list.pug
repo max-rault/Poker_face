@@ -1,0 +1,9 @@
+extends ../layout.pug
+include ./_thumbcardUser
+
+block content
+  .album.py-5.bg-light
+    .container
+      .row
+        each user in users
+          +thumbcard(user)

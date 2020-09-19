@@ -6,7 +6,7 @@ mongoose.connect('mongodb://localhost:27017/mortal_kombat_tornament', {useNewUrl
 .catch((err) => console.error("db connection  err: ", err))
 
 async function PutTornament(data){
-  console.log("data : ", data.name)
+  
   var tournament = tornament.newTornament()
 
   var newTournament = new tournament({
@@ -19,9 +19,11 @@ async function PutTornament(data){
     organizer: data.organizer,
     cave: data.cave,
     buyIn: data.buyIn,
+    level: data.level,
+    type: data.type,
+    gameVariant: data.gameVariant,
   })
   const res = await newTournament.save();
-  console.log("res : ", res)
   mongoose.disconnect()
 }
 

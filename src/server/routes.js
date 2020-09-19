@@ -1,6 +1,8 @@
 const express = require('express')
 const tornamentPutHandler = require('./handler/tornament/put')
 const tornamentListHandler = require('./handler/tornament/list')
+const usersListHandler = require('./handler/users/list')
+const usersPutHandler = require('./handler/users/put')
 const userDataHandler = require('./handler/auth/authenticateUser')
 const bodyParser = require('body-parser')
 const router = express.Router()
@@ -20,13 +22,15 @@ res.render('mixins/auth/loggin')
   var username = req.body.userName;
   var password = req.body.pwd;
 	if (username && password) {
-    let results = await userDataHandler.GetUserData(username, password)
-    console.log("result: ", results)
+    let results;
+    results = await userDataHandler.GetUserData(username, password)
     if (results.userName === username && results.pwd === password || username === 'admin' && password === 'admin') {
       req.session.loggedin = true;
       req.session.username = username;
+      res.status(201)
       res.redirect('/home');
     } else {
+      res.status(401)
       res.redirect('/auth')
     }			
     res.end();
@@ -49,17 +53,36 @@ router.route('/tournament/new')
     res.render('mixins/tornament/new')
 })
 .post((req, res) =>{
-  res.redirect('/')
   tornamentPutHandler.PutTornament(req.body)
+  res.redirect('/tournament')
+
 })
 
 router.route('/tournament')
 .get(async (req, res) =>{
     let tournaments;
     tournaments = await tornamentListHandler.ListTornament()
-    console.log("tournaments: ", tournaments)
 
   res.render('mixins/tornament/list', {tournaments: tournaments})
+})
+.post((req, res) =>{
+})
+
+router.route('/users/new')
+.get((req, res) =>{
+    res.render('mixins/user/new')
+})
+.post((req, res) =>{
+  res.redirect('/users')
+  usersPutHandler.PutUser(req.body)
+})
+
+router.route('/users')
+.get(async (req, res) =>{
+    let users;
+    users = await usersListHandler.ListUsers()
+
+  res.render('mixins/user/list', {users: users})
 })
 .post((req, res) =>{
 })

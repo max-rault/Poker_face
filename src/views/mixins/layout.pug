@@ -3,7 +3,14 @@ html
   head
     title Mortal kombat Tournament
     link(rel='stylesheet' href='https://getbootstrap.com/docs/4.4/dist/css/bootstrap.min.css')
+    link(rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.18/dist/css/bootstrap-select.min.css")
+    link(rel="stylesheet" href="css/bootstrap-datetimepicker.css" type="text/css")
+
     style.
+      :root {
+        --input-padding-x: 1.5rem;
+        --input-padding-y: .75rem;
+      }
       .bd-placeholder-img {
         font-size: 1.125rem;
         text-anchor: middle;
@@ -17,26 +24,57 @@ html
         min-height: 30rem;
         border-radius: 0;
       }
-
-      footer {
-        padding-top: 3rem;
-        padding-bottom: 3rem;
+      .btn-secondary {
+        background-color: unset !important;
+        border-color: transparent !important;
+      }
+      .dropdown-menu {
+        background-color: #343a40 !important;
+      }
+      .dropdown-item {
+        color: #fff !important
       }
 
-      footer p {
-        margin-bottom: .25rem;
+      .dropdown-menu > a:hover, .dropdown-menu > a:focus {
+            background-color: unset;
       }
 
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
+      .bootstrap-select>.dropdown-toggle.bs-placeholder.btn-danger, 
+      .bootstrap-select>.dropdown-toggle.bs-placeholder.btn-danger:active, 
+      .bootstrap-select>.dropdown-toggle.bs-placeholder.btn-danger:focus, 
+      .bootstrap-select>.dropdown-toggle.bs-placeholder.btn-danger:hover, 
+      .bootstrap-select>.dropdown-toggle.bs-placeholder.btn-dark, 
+      .bootstrap-select>.dropdown-toggle.bs-placeholder.btn-dark:active, 
+      .bootstrap-select>.dropdown-toggle.bs-placeholder.btn-dark:focus, 
+      .bootstrap-select>.dropdown-toggle.bs-placeholder.btn-dark:hover, 
+      .bootstrap-select>.dropdown-toggle.bs-placeholder.btn-info, 
+      .bootstrap-select>.dropdown-toggle.bs-placeholder.btn-info:active, 
+      .bootstrap-select>.dropdown-toggle.bs-placeholder.btn-info:focus, 
+      .bootstrap-select>.dropdown-toggle.bs-placeholder.btn-info:hover, 
+      .bootstrap-select>.dropdown-toggle.bs-placeholder.btn-primary, 
+      .bootstrap-select>.dropdown-toggle.bs-placeholder.btn-primary:active, 
+      .bootstrap-select>.dropdown-toggle.bs-placeholder.btn-primary:focus, 
+      .bootstrap-select>.dropdown-toggle.bs-placeholder.btn-primary:hover, 
+      .bootstrap-select>.dropdown-toggle.bs-placeholder.btn-secondary, 
+      .bootstrap-select>.dropdown-toggle.bs-placeholder.btn-secondary:active, 
+      .bootstrap-select>.dropdown-toggle.bs-placeholder.btn-secondary:focus, 
+      .bootstrap-select>.dropdown-toggle.bs-placeholder.btn-secondary:hover, 
+      .bootstrap-select>.dropdown-toggle.bs-placeholder.btn-success, 
+      .bootstrap-select>.dropdown-toggle.bs-placeholder.btn-success:active, 
+      .bootstrap-select>.dropdown-toggle.bs-placeholder.btn-success:focus, 
+      .bootstrap-select>.dropdown-toggle.bs-placeholder.btn-success:hover {
+        color: rgba(255,255,255);
       }
+      .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+            background-color: unset !important;
+      }
+      
 
-  body
+  body.bg-light
     include ../includes/header.pug
-
     main#main
       block content
     script(src='https://code.jquery.com/jquery-3.4.1.slim.min.js')
     script(src='https://getbootstrap.com/docs/4.4/dist/js/bootstrap.bundle.min.js')
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.18/dist/js/bootstrap-select.min.js")
+    script(src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.18/dist/js/i18n/defaults-*.min.js")

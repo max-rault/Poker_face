@@ -12,10 +12,14 @@ function newTornament(){
         organizer: String,
         cave: Number,
         buyIn: Number,
+        level: String,
+        type: String,
+        gameVariant: String,
+        ParticipantsId: String,
     })
 
-    const Tornament = mongoose.model('Tournament', tornamentScheme)
-    return Tornament
+    const Tournament = mongoose.model('Tournament', tornamentScheme)
+    return Tournament
 }
 
 module.exports = {"newTornament" : newTornament}

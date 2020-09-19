@@ -7,11 +7,26 @@ header
     .collapse.navbar-collapse(id='navbarSupportedContent')
       ul.navbar-nav.mr-auto
         li.nav-item
-          a.nav-link(href='/tournament') Tournois
+          .dropdown
+            button#dropdownMenu.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+              | Tournois
+            .dropdown-menu(aria-labelledby='dropdownMenu')
+              a.dropdown-item(href='/tournament') Liste des tournois
+              a.dropdown-item(href='/tournament/new') Ajouter un tournoi
         li.nav-item
-          a.nav-link(href='/participants') Participants
+          .dropdown
+            button#dropdownMenu.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+              | Participants
+            .dropdown-menu(aria-labelledby='dropdownMenu')
+              a.dropdown-item(href='/participants') Liste des Participants
+              a.dropdown-item(href='/participants') Ajouter un participant
         li.nav-item
-          a.nav-link(href='/places') Places
+          .dropdown
+            button#dropdownMenu.btn.btn-secondary.dropdown-toggle(type='button', data-toggle='dropdown', aria-haspopup='true', aria-expanded='false')
+              | Utilisateurs
+            .dropdown-menu(aria-labelledby='dropdownMenu')
+              a.dropdown-item(href='/users') Listes des utilisateurs
+              a.dropdown-item(href='/users/new') Ajouter un utilisateur
       ul.navbar-nav.float-right
         li.nav-item
           a.nav-link(href='/auth') Se deconnecter

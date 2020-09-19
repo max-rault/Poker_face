@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-function userModel(){
+function newUser(){
     delete mongoose.connection.models['Users'];
     const userScheme = mongoose.Schema({
       firstname: String,
@@ -8,11 +8,12 @@ function userModel(){
       gender: String,
       mail: String,
       userName: String,
-      pwd: String
+      pwd: String,
+      type: String,
     })
 
-    const Users = mongoose.model('Users', userScheme)
-    return Users
+    const User = mongoose.model('Users', userScheme)
+    return User
 }
 
-module.exports = {"userModel" : userModel}
+module.exports = {"newUser" : newUser}
