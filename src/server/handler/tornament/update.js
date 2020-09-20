@@ -1,16 +1,15 @@
 const mongoose = require('mongoose');
 const tornament = require('../../../model/tornament');
-require('../../../model/tornament')
-mongoose.connect('mongodb://localhost:27017/mortal_kombat_tornament', {useNewUrlParser: true})
-.then(() => console.log("i'm connected"))
-.catch((err) => console.error("db connection  err: ", err))
 
 async function UpdateTournament(data, id){
-	let doc;
-	doc = await tornament.newTornament().findOne({_id: id})
+  mongoose.connect('mongodb://localhost:27017/mortal_kombat_tornament', {useNewUrlParser: true})
+  .then(() => console.log("i'm connected"))
+  .catch((err) => console.error("db connection  err: ", err))
 
-	doc.overwrite({
-		name: data.name,
+	let doc;
+  
+  doc = await tornament.newTornament().findOneAndUpdate({_id: id},{$set:{
+    name: data.name,
     description: data.description,
     startdate: data.startdate,
     enddate: data.enddate,
@@ -22,8 +21,15 @@ async function UpdateTournament(data, id){
     level: data.level,
     type: data.type,
     gameVariant: data.gameVariant,
-	})
-  doc.save();
+  }}, {new: true}, (err, doc) =>{
+    if(err){
+      console.log("Something wrong when updating data!");
+    }
+
+    console.log(doc);
+  })
+  doc.save()
+
   mongoose.disconnect()
 }
 

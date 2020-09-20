@@ -1,15 +1,15 @@
 const mongoose = require('mongoose');
-const User = require('../../../model/user')
+const Table = require('../../../model/table')
 
-async function ListUsers(){
+async function ListTables(){
    mongoose.connect('mongodb://localhost:27017/mortal_kombat_tornament', {useNewUrlParser: true})
    .then(() => console.log("im connected"))
    .catch((err) => console.log("err : ",err))
 
-   var res = await User.newUser().find({})
+   var res = await Table.newTable().find({})
 
    mongoose.disconnect()
    return res
 }
 
-module.exports = {"ListUsers": ListUsers}
+module.exports = {"ListTables": ListTables}

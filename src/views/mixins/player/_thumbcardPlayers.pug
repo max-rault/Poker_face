@@ -1,0 +1,19 @@
+mixin thumbcard(Player)
+  .col-md-4
+    .card.mb-4.shadow-sm
+      svg.bd-placeholder-img.card-img-top&attributes({"width": "100%"}, {"height": "225"}, {"focusable": "false"}, {"role": "img"})
+        title #{Player.firstname} #{Player.lastname}
+        rect(width="100%" height="100%" fill="#55595c")
+        text(x="50%" y="50%" fill="#eceeef" dy=".3em") #{Tournament.name}
+      .card-body
+        .card-text #{Player.firstname} #{Player.lastname}
+        .card-text.mb-4 Inscrit au tournoi : #{TournamentName}
+        .card-text.mb-4 Type de tournoi : #{TournamentType}
+        .card-text.mb-4 Variante de jeu : #{TournamentGameVariant}
+        .card-text.mb-4 Niveau du tournoi : #{TournamentLevel}
+        .card-text.mb-4 Table de démarage : #{TableName}
+        .d-flex.justify-content-between.align-items-center
+          .btn-group
+            a.btn.btn-sm.btn-outline-secondary(href=`/players/show/${Tournament._id}`) Détails
+            a.btn.btn-sm.btn-outline-secondary(href=`/players/edit/${Tournament._id}`) Editer
+            a.btn.btn-sm.btn-outline-secondary(href=`/players/delete/${Tournament._id}`) Supprimer

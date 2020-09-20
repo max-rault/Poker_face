@@ -1,0 +1,12 @@
+extends ../layout
+
+block content
+	ul.list-group
+		li.list-group-item.active #{firstname} #{lastname}
+		li.list-group-item Sexe: #{gender}
+		li.list-group-item Adresse Mail:  #{mail}
+		li.list-group-item Niveau de jeu: #{level}
+        li.list-group-item Status: #{status}
+		li.list-group-item Nombre de jeton restant: #{numberPokerChipsRemaining}
+        li.list-group-item Table de démarage: #{TableName}
+		li.list-group-item Inscrit au tounois: #{TournamentName}

@@ -15,6 +15,7 @@ function newTornament(){
         level: String,
         type: String,
         gameVariant: String,
+        status: String,
         ParticipantsId: String,
     })
 

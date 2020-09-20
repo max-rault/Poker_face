@@ -3,7 +3,25 @@ extends ../layout
 block content
   .album.py-5.bg-light
     .container
-        <form class="form-horizontal" action="/users/new" method="post">
+        <form class="form-horizontal" action="/tables/new" method="post">
+          <div id="fgTournamentName" class="form-group has-feedback">
+            <div class="col-sm-8">
+              <select name="idTournament" class="selectpicker" multiple title="Nom du tournoi" data-style="btn-primary">
+                each tournament in tournaments
+                  <option value=#{tournament._id}>#{tournament.name}</option>
+              </select>
+            </div>
+          </div>
+
+            <div id="fgUserName" class="form-group has-feedback">
+            <div class="col-sm-8">
+              <select name="idTable" class="selectpicker" multiple title="Nom de la table de départ" data-style="btn-primary">
+                each table in tables
+                  <option value=#{table._id}>#{table.name}</option>
+              </select>
+            </div>
+          </div>
+
           <div id="fgInputFirstName" class="form-group has-feedback">
             <div class="col-sm-8">
               <input class="form-control" type="text" id="firstname" name="firstname" placeholder="Prénom">
@@ -22,34 +40,23 @@ block content
               </select>
             </div>
           </div>
+
           <div id="fgMail" class="form-group has-feedback">
             <div class="col-sm-8">
               <input type="email" id="mail" name="mail" class="form-control" placeholder="mail">
             </div>
           </div>
-          <div  id="fgUsername" class="form-group has-feedback">
+
+           <div  id="fgnumberPokerChipsRemaining" class="form-group has-feedback">
+            <label for="cave" class="col-sm-2 control-label">Nombre de jetons de départ</label>
             <div class="col-sm-8">
-              <input type="text" id="userName" name="userName" class="form-control" placeholder="nom d'utilisateur">
+              <input type="number" id="numberPokerChipsRemaining" name="numberPokerChipsRemaining" class="form-control">
             </div>
           </div>
-          <div  id="fgPwd" class="form-group has-feedback">
-            <div class="col-sm-8">
-              <input type="password" id="pwd" name="pwd" class="form-control" placeholder="mot de passe">
-            </div>
-          </div>
-          <div id="fgType" class="form-group has-feedback">
-            <div class="col-sm-8">
-              <select name="type" class="selectpicker" multiple title="Type de compte" data-style="btn-primary">
-                <option>Admin</option>
-                <option>Organisteur</option>
-                <option>Croupier</option>
-              </select>
-            </div>
-          </div>
-         
+        
           <div class="form-group">
             <div class="col-sm-8 col-sm-offset-2">
-              <input id="btnSubmit" type="submit" value="Enregistrer" class="btn btn-success">
+              <input id="btnSubmit" type="submit" value="enregistrer" class="btn btn-success">
             </div>
           </div>
         </form>

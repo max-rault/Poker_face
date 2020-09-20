@@ -3,38 +3,43 @@ extends ../layout
 block content
   .album.py-5.bg-light
     .container
-        <form class="form-horizontal" action="/users/new" method="post">
+        <form class="form-horizontal" action=#{url} method="post">
           <div id="fgInputFirstName" class="form-group has-feedback">
+          <label for="firstname" class="col-sm-2 control-label">Prénom</label>
             <div class="col-sm-8">
-              <input class="form-control" type="text" id="firstname" name="firstname" placeholder="Prénom">
+              <input class="form-control" type="text" value=#{firstname} id="firstname" name="firstname" placeholder="Prénom">
             </div>
           </div>
           <div id="fgLastName" class="form-group has-feedback">
+            <label for="lastname" class="col-sm-2 control-label">Nom</label>
             <div class="col-sm-8">
-              <input class="form-control" type="text" id="lastname" name="lastname" placeholder="Nom">
+              <input class="form-control" type="text" value=#{lastname} id="lastname" name="lastname" placeholder="Nom">
             </div>
           </div>
           <div id="fgGender" class="form-group has-feedback">
             <div class="col-sm-8">
-              <select name="gender" class="selectpicker" multiple title="Genre" data-style="btn-primary">
+              <select name="gender" value=#{gender} class="selectpicker" multiple title="Genre" data-style="btn-primary">
                 <option>Homme</option>
                 <option>Femme</option>
               </select>
             </div>
           </div>
           <div id="fgMail" class="form-group has-feedback">
+            <label for="mail" class="col-sm-2 control-label">Adresse Mail</label>
             <div class="col-sm-8">
-              <input type="email" id="mail" name="mail" class="form-control" placeholder="mail">
+              <input type="email" id="mail" value=#{mail} name="mail" class="form-control" placeholder="mail">
             </div>
           </div>
           <div  id="fgUsername" class="form-group has-feedback">
+            <label for="userName" class="col-sm-2 control-label">Nom d'utilisateur</label>
             <div class="col-sm-8">
-              <input type="text" id="userName" name="userName" class="form-control" placeholder="nom d'utilisateur">
+              <input type="text" id="userName" value=#{userName} name="userName" class="form-control" placeholder="nom d'utilisateur">
             </div>
           </div>
           <div  id="fgPwd" class="form-group has-feedback">
+            <label for="pwd" class="col-sm-2 control-label">Mot de passe</label>
             <div class="col-sm-8">
-              <input type="password" id="pwd" name="pwd" class="form-control" placeholder="mot de passe">
+              <input type="password" id="pwd" name="pwd" class="form-control" placeholder="nouveau mot de passe">
             </div>
           </div>
           <div id="fgType" class="form-group has-feedback">

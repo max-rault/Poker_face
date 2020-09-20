@@ -1,0 +1,9 @@
+extends ../layout.pug
+include ./_thumbcardPlayers
+
+block content
+  .album.py-5.bg-light
+    .container
+      .row
+        each player in players
+          +thumbcard(player)

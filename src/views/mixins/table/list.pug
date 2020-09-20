@@ -1,0 +1,9 @@
+extends ../layout.pug
+include ./_thumbcardTable
+
+block content
+  .album.py-5.bg-light
+    .container
+      .row
+        each table in tables
+          +thumbcard(table)

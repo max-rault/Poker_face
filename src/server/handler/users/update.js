@@ -1,15 +1,14 @@
 const mongoose = require('mongoose');
 const User = require('../../../model/user');
-require('../../../model/tornament')
 
-
-async function PutUser(data){
+async function UpdateUser(data, id){
   mongoose.connect('mongodb://localhost:27017/mortal_kombat_tornament', {useNewUrlParser: true})
   .then(() => console.log("i'm connected"))
   .catch((err) => console.error("db connection  err: ", err))
-  var user = User.newUser()
 
-  var newUser = new user({
+	let doc;
+  
+  doc = await User.newUser().findOneAndUpdate({_id: id},{$set:{
     firstname: data.firstname,
     lastname: data.lastname,
     gender: data.gender,
@@ -17,9 +16,16 @@ async function PutUser(data){
     userName: data.userName,
     pwd: data.pwd,
     type: data.type,
+  }}, {new: true}, (err, doc) =>{
+    if(err){
+      console.log("Something wrong when updating data!");
+    }
+
+    console.log(doc);
   })
-  const res = await newUser.save();
+  doc.save()
+
   mongoose.disconnect()
 }
 
-module.exports = {"PutUser": PutUser}
+module.exports = {"UpdateUser": UpdateUser}
