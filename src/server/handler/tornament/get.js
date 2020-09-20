@@ -1,18 +1,11 @@
 const mongoose = require('mongoose');
 const Tornament = require('../../../model/tornament')
-mongoose.connect('mongodb://localhost/mortal_kombat_tornament', {useNewUrlParser: true});
+mongoose.connect('mongodb://localhost:27017/mortal_kombat_tornament', {useNewUrlParser: true});
 
-function GetTornament(id){
-    const db = mongoose.connection;
+async function GetTornament(id){
     let res;
-    db.on('error', console.error.bind(console, 'connection error:'));
-    db.once('open', function() {
-        Tornament.newTornament().find({_id: id},(err, tornament) =>{
-            if(err) return console.error("list tornament err : ", err)
-            res = tornament
-            return res;
-        })
-    });
+    res = await Tornament.newTornament().findOne({_id: id})
+    return res
 }
 
 module.exports = {"GetTornament": GetTornament}

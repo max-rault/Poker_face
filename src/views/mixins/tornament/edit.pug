@@ -1,0 +1,104 @@
+extends ../layout
+
+block content
+  .album.py-5.bg-light
+    .container
+        <form class="form-horizontal" action=#{url} method="post">
+          <div id="fgInputName" class="form-group has-feedback">
+            <label for="description" class="col-sm-2 control-label">Nom du tournoi #{url}</label>
+            <div class="col-sm-8">
+              <input class="form-control" type="text" value=#{name} id="name" name="name">
+            </div>
+          </div>
+          <div id="fgComments" class="form-group has-feedback">
+            <label for="description" class="col-sm-2 control-label">Description</label>
+            <div class="col-sm-8">
+              <textarea id="description" name="description" class="form-control">#{description}</textarea>
+            </div>
+          </div>
+          <div id="fgStartDate" class="form-group has-feedback">
+            <label for="startdate" class="col-sm-2 control-label">Date de début</label>
+            <div class="col-sm-8">
+              <input type="datetime-local" id="startdate" value=#{startdate} name="startdate" class="form-control" placeholder="Date de début">
+            </div>
+          </div>
+          <div id="fgEndDate" class="form-group has-feedback">
+            <label for="enddate" class="col-sm-2 control-label">Date de fin</label>
+            <div class="col-sm-8">
+            
+              <input type="datetime-local" id="enddate" value=#{enddate} name="enddate" class="form-control">
+            </div>
+          </div>
+          <div  id="fgParticipantMax" class="form-group has-feedback">
+            <label for="maxParticipant" class="col-sm-2 control-label">Nombre maximum de participants</label>
+            <div class="col-sm-8">
+              <input type="number" id="maxParticipant" value=#{maxParticipant} name="maxParticipant" class="form-control">
+            </div>
+          </div>
+          <div  id="fgPriceToWin" class="form-group has-feedback">
+            <label for="priceToWin" class="col-sm-2 control-label">Prix à gagner</label>
+            <div class="col-sm-8">
+              <input type="text" id="priceToWin" value=#{priceToWin} name="priceToWin" class="form-control">
+            </div>
+          </div>
+          <div  id="fgOrganizer" class="form-group has-feedback">
+            <label for="organizer" class="col-sm-2 control-label">Nom de l'organisateur</label>
+            <div class="col-sm-8">
+              <input type="text" id="organizer" value=#{organizer} name="organizer" class="form-control">
+            </div>
+          </div>
+          <div  id="fgcave" class="form-group has-feedback">
+            <label for="cave" class="col-sm-2 control-label">montant de la cave</label>
+            <div class="col-sm-8">
+              <input type="number" id="cave" value=#{cave} name="cave" class="form-control">
+            </div>
+          </div>
+          <div  id="fgbuyIn" class="form-group has-feedback">
+            <label for="buyIn" class="col-sm-2 control-label">mise pour entrer</label>
+            <div class="col-sm-8">
+             <input type="number" id="buyIn" value=#{buyIn} name="buyIn" class="form-control">
+            </div>
+          </div>
+
+           <div id="fgLevel" class="form-group has-feedback">
+            <div class="col-sm-8">
+              <select name="level" value=#{level} class="selectpicker" multiple title="Niveau de jeu" data-style="btn-primary">
+                <option>déburant</option>
+                <option>intermediaire</option>
+                <option>confirmé</option>
+              </select>
+            </div>
+          </div>
+
+           <div id="fgType" class="form-group has-feedback">
+            <div class="col-sm-8">
+              <select name="type" value=#{type} class="selectpicker" multiple title="Type de tournois" data-style="btn-primary">
+                <option>Programmé</option>
+                <option>Sit & Go</option>
+                <option>Freeroll</option>
+                <option>Garanti</option>
+                <option>Satellite</option>
+                <option>Deep Stack</option>
+                <option>Turbo</option>
+                <option>Heads Up</option>
+                <option>Short Handed</option>
+              </select>
+            </div>
+          </div>
+
+          <div id="fgGameVariant" class="form-group has-feedback">
+            <div class="col-sm-8">
+              <select name="gameVariant" value=#{gameVariant} class="selectpicker" multiple title="vatiante de jeu" data-style="btn-primary">
+                <option>avec Recave</option>
+                <option>Freeze-Out</option>
+              </select>
+            </div>
+          </div>
+         
+          <div class="form-group">
+            <div class="col-sm-8 col-sm-offset-2">
+              <input id="btnSubmit" type="submit" value="enregistrer" class="btn btn-success">
+            </div>
+          </div>
+        </form>
+            
