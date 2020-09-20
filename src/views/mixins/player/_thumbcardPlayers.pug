@@ -7,13 +7,13 @@ mixin thumbcard(Player)
         text(x="50%" y="50%" fill="#eceeef" dy=".3em") #{Tournament.name}
       .card-body
         .card-text #{Player.firstname} #{Player.lastname}
-        .card-text.mb-4 Inscrit au tournoi : #{TournamentName}
-        .card-text.mb-4 Type de tournoi : #{TournamentType}
-        .card-text.mb-4 Variante de jeu : #{TournamentGameVariant}
-        .card-text.mb-4 Niveau du tournoi : #{TournamentLevel}
-        .card-text.mb-4 Table de démarage : #{TableName}
+        .card-text.mb-4 Inscrit au tournoi : #{Player.Tournament.name}
+        .card-text.mb-4 Type de tournoi : #{Player.Tournament.type}
+        .card-text.mb-4 Variante de jeu : #{Player.Tournament.gameVariant}
+        .card-text.mb-4 Niveau du tournoi : #{Player.Tournament.Level}
+        .card-text.mb-4 Table de démarage : #{Player.Table.Name}
         .d-flex.justify-content-between.align-items-center
           .btn-group
-            a.btn.btn-sm.btn-outline-secondary(href=`/players/show/${Tournament._id}`) Détails
-            a.btn.btn-sm.btn-outline-secondary(href=`/players/edit/${Tournament._id}`) Editer
-            a.btn.btn-sm.btn-outline-secondary(href=`/players/delete/${Tournament._id}`) Supprimer
+            a.btn.btn-sm.btn-outline-secondary(href=`/players/show/${Player._id}`) Détails
+            a.btn.btn-sm.btn-outline-secondary(href=`/players/edit/${Player._id}`) Editer
+            a.btn.btn-sm.btn-outline-secondary(href=`/players/delete/${Player._id}`) Supprimer

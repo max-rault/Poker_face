@@ -1,9 +1,9 @@
 extends ../layout.pug
-include ./_thumbcardTournament
+include ./_thumbcardRank
 
 block content
   .album.py-5.bg-light
     .container
       .row
-        each tournament in tournaments
-          +thumbcard(tournament)
+        each rank in ranks
+          +thumbcard(rank)

@@ -24,6 +24,12 @@ const GetTableHandler = require('./handler/table/get')
 const UpdateTableHandler = require('./handler/table/update')
 const DeleteTableHandler = require('./handler/table/delete')
 
+const PutPlayerHandler = require('./handler/player/put')
+const ListPlayerHandler = require('./handler/player/list')
+const GetPlayerHandler = require('./handler/player/get')
+const UpdatePlayerHandler = require('./handler/player/update')
+const DeletePlayerHandler = require('./handler/player/delete')
+
 
 router.use(bodyParser.urlencoded({extended: true}))
 router.use(bodyParser.json())
@@ -222,20 +228,28 @@ router.route('/users/delete/:id')
 // Player routes
 
 router.route('/players/new')
-.get((req, res) =>{
-    res.render('mixins/player/new')
+.get(async (req, res) =>{
+  let tournaments;
+  let tables;
+
+  tournaments = await tornamentListHandler.ListTornament()
+  tables = await ListTableHandler.ListTables()
+    res.render('mixins/player/new', {
+      tournaments: tournaments,
+      tables: tables
+    })
 })
 .post((req, res) =>{
   res.redirect('/players')
-  usersPutHandler.PutUser(req.body)
+  PutPlayerHandler.PutPlayer(req.body)
 })
 
 router.route('/players')
 .get(async (req, res) =>{
-    let users;
-    users = await usersListHandler.ListUsers()
+    let players;
+    players = await ListPlayerHandler.ListPlayer()
 
-  res.render('mixins/player/list', {users: users})
+  res.render('mixins/player/list', {players: players})
 })
 .post((req, res) =>{
 })
@@ -259,29 +273,31 @@ router.route('/players/show/:id')
 
 router.route('/players/edit/:id')
 .get(async (req, res) =>{
-    let user;
     let id;
     id = req.params.id
-    user = await GetUserHandler.GetUser(id)
+    player = await GetPlayerHandler.GetPlayer(id)
+
+    let tournaments;
+    let tables;
+
+    tournaments = await tornamentListHandler.ListTornament()
+    tables = await ListTableHandler.ListTables()
    
   res.render('mixins/player/edit', {
     url: `/players/edit/${req.params.id}`,
-    firstname: user.firstname,
-    lastname: user.lastname,
-    gender: user.gender,
-    mail: user.mail,
-    userName: user.userName,
-    type: user.type,
+    tables: tables,
+    tournaments: tournaments,
+    player: player
   })
 })
 .post((req, res) =>{
-  UpdateUserHandler.UpdateUser(req.body, req.params.id)
+  UpdatePlayerHandler.UpdateTable(req.body, req.params.id)
   res.redirect('/players')
 })
 
 router.route('/players/delete/:id')
 .get((req, res) =>{
-  deleteUserHandler.DeleteUser(req.params.id)
+  DeletePlayerHandler.DeletePlayer(req.params.id)
     res.redirect('/players')
 })
 
