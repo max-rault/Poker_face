@@ -8,7 +8,8 @@ const tornamentListHandler = require('./handler/tornament/list')
 const tornamentGetHandler = require('./handler/tornament/get')
 const tornamentUpdateHandler = require('./handler/tornament/update')
 const tornamentDeleteHandler = require('./handler/tornament/delete')
-
+const tornamentStatusHandler = require('./handler/tornament/setStatus')
+const tornamentRankListHandler = require('./handler/tornament/listTournamentRank')
 
 const usersListHandler = require('./handler/users/list')
 const usersPutHandler = require('./handler/users/put')
@@ -29,6 +30,8 @@ const ListPlayerHandler = require('./handler/player/list')
 const GetPlayerHandler = require('./handler/player/get')
 const UpdatePlayerHandler = require('./handler/player/update')
 const DeletePlayerHandler = require('./handler/player/delete')
+
+const GetRankHandler = require('./handler/ranking/get')
 
 
 router.use(bodyParser.urlencoded({extended: true}))
@@ -69,12 +72,26 @@ res.render('mixins/auth/loggin')
 
 // Home route
 router.route('/home')
-.get((req, res) =>{
+.get(async(req, res) =>{
   if (req.session.loggedin) {
-		res.send(res.render("mixins/index"));
+    let tournaments;
+    tournaments = await tornamentListHandler.ListTornament()
+		res.send(res.render("mixins/index", {tournaments: tournaments}));
 	} else {
 		res.redirect('/auth')
 	}
+})
+
+router.route('/home/begin/:id')
+.get(async(req, res) =>{
+  await tornamentStatusHandler.UpdateTournamentStatus('En cours', req.params.id)
+  res.redirect('/home')
+})
+
+router.route('/home/begin/:id')
+.get(async(req, res) =>{
+  await tornamentStatusHandler.UpdateTournamentStatus('Terminée', req.params.id)
+  res.redirect('/home')
 })
 
 // Tournament route
@@ -104,6 +121,7 @@ router.route('/tournament/show/:id')
     let id;
     id = req.params.id
     let tournament;
+    tournament = await tornamentGetHandler.GetTornament(id)
 
   res.render('mixins/tornament/show', {
     name: tournament.name,
@@ -239,15 +257,16 @@ router.route('/players/new')
       tables: tables
     })
 })
-.post((req, res) =>{
+.post(async (req, res) =>{
+  await PutPlayerHandler.PutPlayer(req.body)
   res.redirect('/players')
-  PutPlayerHandler.PutPlayer(req.body)
 })
 
 router.route('/players')
 .get(async (req, res) =>{
     let players;
     players = await ListPlayerHandler.ListPlayer()
+    console.log(players)
 
   res.render('mixins/player/list', {players: players})
 })
@@ -258,16 +277,11 @@ router.route('/players/show/:id')
 .get(async (req, res) =>{
     let id;
     id = req.params.id
-    let user;
-    user = await GetUserHandler.GetUser(id)
+    let player;
+    player = await GetPlayerHandler.GetPlayer(id)
 
   res.render('mixins/player/show', {
-      firstname: user.firstname,
-      lastname: user.lastname,
-      gender: user.gender,
-      mail: user.mail,
-      userName: user.userName,
-      type: user.type,
+    player: player
   })
 })
 
@@ -290,8 +304,8 @@ router.route('/players/edit/:id')
     player: player
   })
 })
-.post((req, res) =>{
-  UpdatePlayerHandler.UpdateTable(req.body, req.params.id)
+.post(async(req, res) =>{
+  await UpdatePlayerHandler.UpdatePlayer(req.body, req.params.id)
   res.redirect('/players')
 })
 
@@ -376,4 +390,65 @@ router.route('/tables/delete/:id')
     res.redirect('/tables')
 })
 
+//rank
+
+router.route('/ranks/new')
+.get(async (req, res) =>{
+    let tournaments;
+    let users;
+
+    tournaments = await tornamentListHandler.ListTornament()
+    users = await getUsersTableHandler.GetUsersTable()
+    res.render('mixins/rank/new', {
+      tournaments: tournaments,
+      users: users
+    })
+})
+.post((req, res) =>{
+  res.redirect('/ranks')
+  PutTableHandler.PutTable(req.body)
+})
+
+router.route('/ranks')
+.get(async (req, res) =>{
+    let ranks;
+    ranks = await tornamentRankListHandler.ListTornamentRank()
+    res.render('mixins/rank/list', {ranks: ranks})
+})
+.post((req, res) =>{
+})
+
+router.route('/ranks/show/:id')
+.get(async (req, res) =>{
+    let id;
+    id = req.params.id
+    let ranks;
+    ranks = await GetRankHandler.GetRank(id)
+    console.log(ranks)
+  res.render('mixins/rank/show', {
+     ranks: ranks
+  })
+})
+
+router.route('/ranks/edit/:id')
+.get(async (req, res) =>{
+    let id;
+    id = req.params.id
+    player = await GetTableHandler.GetTable(id)
+
+  res.render('mixins/rank/edit', {
+    url: `/ranks/edit/${req.params.id}`,
+    players: players
+  })
+})
+.post((req, res) =>{
+  UpdateTableHandler.UpdateTable(req.body, req.params.id)
+  res.redirect('/ranks')
+})
+
+router.route('/ranks/delete/:id')
+.get((req, res) =>{
+  DeleteTableHandler.DeleteTable(req.params.id)
+    res.redirect('/ranks')
+})
 module.exports = router

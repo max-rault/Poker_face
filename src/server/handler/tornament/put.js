@@ -5,7 +5,7 @@ require('../../../model/tornament')
 
 async function PutTornament(data){
 
-  mongoose.connect('mongodb://localhost:27017/mortal_kombat_tornament', {useNewUrlParser: true})
+  mongoose.connect('mongodb://localhost:27017/mortal_kombat_tornament', {useUnifiedTopology: true, poolSize: 20 ,useNewUrlParser: true})
   .then(() => console.log("i'm connected"))
   .catch((err) => console.error("db connection  err: ", err))
   
@@ -24,9 +24,12 @@ async function PutTornament(data){
     level: data.level,
     type: data.type,
     gameVariant: data.gameVariant,
+    status: "none"
   })
-  const res = await newTournament.save();
+  await newTournament.save();
   mongoose.disconnect()
+  .then(()=>{"im disconnected"})
+  .catch((err) => console.log("err : ", err))
 }
 
 module.exports = {"PutTornament": PutTornament}

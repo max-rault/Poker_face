@@ -9,6 +9,8 @@ function newPlayer(){
         mail: String,
         numberPokerChipsRemaining: Number,
         status: String,
+        Range: Number,
+        Score: Number,
         Table: Object,
         Tournament: Object,
     })

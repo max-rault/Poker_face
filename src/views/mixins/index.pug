@@ -1,7 +1,9 @@
 extends layout.pug
+include ./_thumbcardHome
 
 block content
   .album.py-5.bg-light
     .container
       .row
-      p thumbcard
+        each tournament in tournaments
+          +thumbcard(tournament)

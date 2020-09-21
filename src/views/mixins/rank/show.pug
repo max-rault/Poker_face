@@ -1,16 +1,21 @@
 extends ../layout
 
 block content
-	ul.list-group
-		li.list-group-item.active #{name}
-		li.list-group-item Date de début: #{startdate.getDate() + "/" + startdate.getMonth() + "/" + startdate.getFullYear() + " " + startdate.getHours() + "h:" + startdate.getMinutes() + "min"}
-		li.list-group-item Date de fin: #{enddate.getDate() + "/" + enddate.getMonth() + "/" + enddate.getFullYear() + " " + enddate.getHours() + "h:" + enddate.getMinutes() + "min"}
-		li.list-group-item Nombre de participant max: #{maxParticipant}
-		li.list-group-item Prix à gagner: #{priceToWin}
-		li.list-group-item Organisateur:  #{organizer}
-		li.list-group-item Montant de la cave: #{cave} €
-		li.list-group-item Montant du droit d'entrée: #{buyIn} €
-		li.list-group-item Niveau de jeu: #{level}
-		li.list-group-item Type de tournois: #{type}
-		li.list-group-item Variante de jeu: #{gameVariant}
-		li.list-group-item Description: #{description}
+	.container
+		h2 Classement
+		p  Liste des joueurs
+		table.table.table-dark
+			thead
+			tr
+				th Prénom
+				th Nom
+				th Rang
+				th Score
+			tbody
+			each rank in ranks
+				tr
+					td #{rank.firstname}
+					td #{rank.lastname}
+					td #{rank.range}
+					td #{rank.Score}
+

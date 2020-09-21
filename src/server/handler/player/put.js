@@ -4,29 +4,32 @@ const Table = require('../../../model/table');
 const Tornament = require('../../../model/tornament')
 
 async function PutPlayer(data){
-  mongoose.connect('mongodb://localhost:27017/mortal_kombat_tornament', {useNewUrlParser: true})
-  .then(() => console.log("i'm connected"))
-  .catch((err) => console.error("db connection  err: ", err))
-
   let resTournament;
-	resTournament = await Tornament.newTornament().findOne({_id: data.idTournament})
-
 	let resTable;
-	resTable = await Table.newTable().findOne({_id: data.idTable})
 
-  var player = Player.newPlayer()
+  try {
+    mongoose.connect('mongodb://localhost:27017/mortal_kombat_tornament', {useUnifiedTopology: true, poolSize: 20 ,useNewUrlParser: true})
+  
+    resTournament = await Tornament.newTornament().findOne({_id: data.idTournament})
 
-  var newPlayer = new player({
-    firstname: data.firstname,
-    lastname: data.lastname,
-    gender: data.gender,
-    mail: data.mail,
-    numberPokerChipsRemaining: data.numberPokerChipsRemaining,
-    Table: resTable,
-    Tournament: resTournament,
-  })
-  const res = await newPlayer.save();
-  mongoose.disconnect()
+    resTable = await Table.newTable().findOne({_id: data.idTable})
+    var player = Player.newPlayer()
+
+    var newPlayer = new player({
+      firstname: data.firstname,
+      lastname: data.lastname,
+      gender: data.gender,
+      mail: data.mail,
+      numberPokerChipsRemaining: data.numberPokerChipsRemaining,
+      Table: resTable,
+      Tournament: resTournament,
+    })
+      newPlayer.save();
+    
+  } catch (error) {
+    console.log(error)
+  }
+  
 }
 
 module.exports = {"PutPlayer": PutPlayer}

@@ -2,13 +2,11 @@ const mongoose = require('mongoose');
 const User = require('../../../model/user')
 
 async function GetUsersTable(){
-   mongoose.connect('mongodb://localhost:27017/mortal_kombat_tornament', {useNewUrlParser: true})
-  .then(()=> console.log('im connected'))
-  .catch((err) => console.log("error : ", err))
+  await mongoose.connect('mongodb://localhost:27017/mortal_kombat_tornament', {useUnifiedTopology: true, poolSize: 20 ,useNewUrlParser: true})
 
    var res = await User.newUser().find({type: "Croupier"})
 
-   mongoose.disconnect()
+   await mongoose.disconnect()
    return res
 }
 

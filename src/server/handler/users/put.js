@@ -4,7 +4,7 @@ require('../../../model/tornament')
 
 
 async function PutUser(data){
-  mongoose.connect('mongodb://localhost:27017/mortal_kombat_tornament', {useNewUrlParser: true})
+  mongoose.connect('mongodb://localhost:27017/mortal_kombat_tornament', {useUnifiedTopology: true, poolSize: 20 ,useNewUrlParser: true})
   .then(() => console.log("i'm connected"))
   .catch((err) => console.error("db connection  err: ", err))
   var user = User.newUser()
@@ -18,8 +18,10 @@ async function PutUser(data){
     pwd: data.pwd,
     type: data.type,
   })
-  const res = await newUser.save();
+  await newUser.save();
   mongoose.disconnect()
+  .then(()=>{"im disconnected"})
+  .catch((err) => console.log("err : ", err))
 }
 
 module.exports = {"PutUser": PutUser}

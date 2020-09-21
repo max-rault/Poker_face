@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 const player = require('../../../model/player');
 
 async function DeletePlayer(id){
-  mongoose.connect('mongodb://localhost:27017/mortal_kombat_tornament', {useNewUrlParser: true})
+  await mongoose.connect('mongodb://localhost:27017/mortal_kombat_tornament', {useUnifiedTopology: true, poolSize: 20 ,useNewUrlParser: true})
   .then(() => console.log("i'm connected"))
   .catch((err) => console.error("db connection  err: ", err))
 
@@ -17,7 +17,9 @@ async function DeletePlayer(id){
   })
   doc.save()
 
-  mongoose.disconnect()
+  await mongoose.disconnect()
+  .then(()=>{"im disconnected"})
+  .catch((err) => console.log("err : ", err))
 }
 
 module.exports = {"DeletePlayer": DeletePlayer}
