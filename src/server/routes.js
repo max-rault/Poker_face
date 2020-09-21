@@ -32,6 +32,8 @@ const UpdatePlayerHandler = require('./handler/player/update')
 const DeletePlayerHandler = require('./handler/player/delete')
 
 const GetRankHandler = require('./handler/ranking/get')
+const PutRankHandler = require('./handler/ranking/put')
+const DeleteRankHandler = require('./handler/ranking/delete')
 
 
 router.use(bodyParser.urlencoded({extended: true}))
@@ -76,7 +78,7 @@ router.route('/home')
   if (req.session.loggedin) {
     let tournaments;
     tournaments = await tornamentListHandler.ListTornament()
-		res.send(res.render("mixins/index", {tournaments: tournaments}));
+		res.render("mixins/index", {tournaments: tournaments});
 	} else {
 		res.redirect('/auth')
 	}
@@ -266,7 +268,6 @@ router.route('/players')
 .get(async (req, res) =>{
     let players;
     players = await ListPlayerHandler.ListPlayer()
-    console.log(players)
 
   res.render('mixins/player/list', {players: players})
 })
@@ -392,30 +393,26 @@ router.route('/tables/delete/:id')
 
 //rank
 
-router.route('/ranks/new')
+router.route('/ranks/new/:id')
 .get(async (req, res) =>{
-    let tournaments;
-    let users;
 
-    tournaments = await tornamentListHandler.ListTornament()
-    users = await getUsersTableHandler.GetUsersTable()
+    players = await GetRankHandler.GetRank(req.params.id)
     res.render('mixins/rank/new', {
-      tournaments: tournaments,
-      users: users
+      url: `/ranks/new/${req.params.id}`,
+      players: players
     })
 })
-.post((req, res) =>{
+.post(async (req, res) =>{
+  await PutRankHandler.UpdatePlayerRank(req.body)
   res.redirect('/ranks')
-  PutTableHandler.PutTable(req.body)
 })
 
 router.route('/ranks')
 .get(async (req, res) =>{
     let ranks;
     ranks = await tornamentRankListHandler.ListTornamentRank()
+    console.log('ranks: ', ranks)
     res.render('mixins/rank/list', {ranks: ranks})
-})
-.post((req, res) =>{
 })
 
 router.route('/ranks/show/:id')
@@ -430,25 +427,9 @@ router.route('/ranks/show/:id')
   })
 })
 
-router.route('/ranks/edit/:id')
-.get(async (req, res) =>{
-    let id;
-    id = req.params.id
-    player = await GetTableHandler.GetTable(id)
-
-  res.render('mixins/rank/edit', {
-    url: `/ranks/edit/${req.params.id}`,
-    players: players
-  })
-})
-.post((req, res) =>{
-  UpdateTableHandler.UpdateTable(req.body, req.params.id)
-  res.redirect('/ranks')
-})
-
 router.route('/ranks/delete/:id')
-.get((req, res) =>{
-  DeleteTableHandler.DeleteTable(req.params.id)
+.post((req, res) =>{
+  DeleteRankHandler.DeletePlayerRank(req.body.idPlayer)
     res.redirect('/ranks')
 })
 module.exports = router

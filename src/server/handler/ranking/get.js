@@ -9,14 +9,9 @@ async function GetRank(id){
 			poolSize: 20 ,
 			useNewUrlParser: true
 		 })
-		 //res = await Player.newPlayer().find({}, (err, doc) =>{
-			 //console.log("player=",doc);
-			res =  Player.newPlayer().find({"Tournament.id": id}, (err, doc) =>{
-			if(err){
-				console.log(err)
-			}
-			console.log('doc : ', doc)
-			return doc
+		res = await Player.newPlayer().find({}).populate({
+			path:'Tournament',
+			match: {_id: id}
 		})
     await mongoose.disconnect()
     return res

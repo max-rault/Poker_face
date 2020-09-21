@@ -13,5 +13,24 @@ mixin thumbcard(Rank)
         .d-flex.justify-content-between.align-items-center
           .btn-group
             a.btn.btn-sm.btn-outline-secondary(href=`/ranks/show/${Rank._id}`) Détails (classement)
-            a.btn.btn-sm.btn-outline-secondary(href=`/ranks/edit/${Rank._id}`) Editer un score
-            a.btn.btn-sm.btn-outline-secondary(href=`/ranks/delete/${Rank._id}`) Supprimer un score
+            a.btn.btn-sm.btn-outline-secondary(href=`/ranks/new/${Rank._id}`) Ajouter/Editer un score
+            button.btn.btn-sm.btn-outline-secondary(data-toggle="modal" data-target="#exampleModalCenter") Supprimer le score d'un joueur
+            #exampleModalCenter.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exampleModalCenterTitle', aria-hidden='true')
+              .modal-dialog.modal-dialog-centered(role='document')
+                .modal-content
+                  .modal-header
+                    h5#exampleModalCenterTitle.modal-title Supprimer le Score d'un joueur
+                    button.close(type='button', data-dismiss='modal', aria-label='Close')
+                      span(aria-hidden='true') &times;
+                  .modal-body
+                    form.form-horizontal(action=`/ranks/delete/${Rank._id}`, method='post')
+                      #fgPlayerName.form-group.has-feedback
+                        .col-sm-8
+                          select.selectpicker(name='idPlayer', multiple title='nom du joueur', data-style='btn-primary')
+                            each player in Rank.Player
+                              option(value='#{player._id}') #{player.firstname} #{player.lastname}
+                      .form-group
+                        .col-sm-8.col-sm-offset-2
+                          input#btnSubmit.btn.btn-success(type='submit', value='enregistrer')
+                  .modal-footer
+                    button.btn.btn-secondary(type='button', data-dismiss='modal') Fermer

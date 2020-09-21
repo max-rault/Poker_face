@@ -3,8 +3,8 @@ extends ../layout
 block content
   .album.py-5.bg-light
     .container
-        <form class="form-horizontal" action="/tournament/new" method="post">
-           <div id="fgPlayerName" class="form-group has-feedback">
+        <form class="form-horizontal" action=#{url} method="post">
+          <div id="fgPlayerName" class="form-group has-feedback">
             <div class="col-sm-8">
               <select name="idPlayer" class="selectpicker" multiple title="nom du joueur" data-style="btn-primary">
                 each player in players
@@ -15,7 +15,7 @@ block content
           <div  id="fgRank" class="form-group has-feedback">
             <label for="range" class="col-sm-2 control-label">Position dans le classement</label>
             <div class="col-sm-8">
-              <input type="number" id="range" name="range" class="form-control">
+              <input type="number" id="range" name="Range" class="form-control">
             </div>
           </div>
            <div  id="fgScore" class="form-group has-feedback">
@@ -24,9 +24,9 @@ block content
               <input type="number" id="Score" name="Score" class="form-control">
             </div>
           </div>
-          <div id="fgLevel" class="form-group has-feedback">
+          <div id="fgStatus" class="form-group has-feedback">
             <div class="col-sm-8">
-              <select name="status" class="selectpicker" multiple title="Niveau de jeu" data-style="btn-primary">
+              <select name="status" class="selectpicker" multiple title="Statut du joueur" data-style="btn-primary">
                 <option>InGame</option>
                 <option>Eliminer</option>
                 <option>Vainqueur</option>

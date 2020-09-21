@@ -16,7 +16,7 @@ function newTornament(){
         type: String,
         gameVariant: String,
         status: String,
-        ParticipantsId: String,
+        Player: Array,
     })
 
     const Tournament = mongoose.model('Tournament', tornamentScheme)
